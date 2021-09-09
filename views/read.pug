@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body    
+    h1 #{title}
+    //-form(action='/board/update', method='post')
+    form(name='form', method='post')
+      table(border='1')
+        input#idx(type='hidden', name='idx', value=`${rows.idx}`)
+        tr
+          td 작성자
+          td 
+            input#name(type='text', name='name', value=`${rows.name}`, required)
+        tr
+          td 제목
+          td 
+            input#title(type='text', name='title', value=`${rows.title}`, required)
+        tr
+          td 내용
+          td
+            textarea#content(name='content', cols='30', rows='10', required) #{rows.content}
+        tr
+          td 비밀번호
+          td 
+            input#passwd(type='password', name='passwd', required)
+        tr
+          td 변경일
+          td #{rows.modidate}
+        tr
+          td 등록일
+          td #{rows.regdate}
+        tr
+          td(colspan='2')
+            button(type='submit', value='update', onclick="form.action='/board/update'") 수정
+            button(type='submit', value='update', onclick="form.action='/board/delete'") 삭제
+            
+    a(href='/board/page') 목록
+          

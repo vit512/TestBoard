@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1 #{title}
+    a(href='/board/write') 글작성
+    table(border='1')
+      tr
+        td 번호     
+        td 작성자         
+        td(style={width: "150px"}) 제목  
+        td 수정일       
+        td 등록일
+      - for(let i=0; i<rows.length; i++)
+        tr
+          td #{rows[i].idx}    
+          td #{rows[i].name}          
+          td
+            a(href="/board/read/" + rows[i].idx) #{rows[i].title}
+          td #{rows[i].modidate}       
+          td #{rows[i].regdate}
+    
+        //- var data = rows[i]
+        //- tr
+        //-   td #{data.idx}    
+        //-   td #{data.name}          
+        //-   td
+        //-     a(href="/board/read/#{data.idx}") #{data.title}
+        //-   td #{data.hit}
+        //-   td #{data.modidate}       
+        //-   td #{data.regdate}
+    
+        
+            
