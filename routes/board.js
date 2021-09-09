@@ -19,8 +19,8 @@ router.get('/list', function(req, res, next) {
 
 router.get('/list/:page', function(req, res, next) { 
   const page = req.params.page; 
-  const sql = "SELECT idx, name, title, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, " +   
-    "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit from board";
+  const sql = `SELECT idx, name, title, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, 
+      date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit FROM board`;
     connection.query(sql, function(err, rows){  
     if(err) 
       console.error("err : " + err);
@@ -34,8 +34,8 @@ router.get('/page', function(req, res, next) {
 
 router.get('/page/:page', function(req, res, next) { 
   const page = req.params.page; 
-  const sql =  "select idx, name, title, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
-  "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate,hit from board";    
+  const sql =  `SELECT idx, name, title, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, 
+    date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate,hit FROM board`;    
 
   connection.query(sql, function(err, rows) {
     if(err) 
@@ -56,7 +56,7 @@ router.post('/write', function(req, res, next) {
   const passwd = req.body.passwd;
   const datas = [name, title, content, passwd]; 
   
-  const sql = "insert into board(name, title, content, regdate, modidate, passwd, hit) values(?,?,?,now(),now(),?,0)"; 
+  const sql = "INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES(?,?,?,now(),now(),?,0)"; 
   connection.query(sql, datas, function(err,rows) { 
     if(err) 
       console.error("err : " + err);
