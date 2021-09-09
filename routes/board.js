@@ -36,7 +36,7 @@ router.get('/page', function(req, res, next) {
 router.get('/page/:page', function(req, res, next) { 
   const page = req.params.page; 
   const sql =  `SELECT idx, name, title, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, 
-    date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate,hit FROM board`;    
+    date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate,hit FROM board ORDER BY regdate DESC`;    
 
   connection.query(sql, function(err, rows) {
     if(err) 
@@ -91,6 +91,7 @@ router.post('/update', function(req, res, next) {
     if(result.affectedRows == 0) { 
       res.send("<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>");
     } else {
+      alert("수정되었습니다.");
       //res.send("<script>alert('수정되었습니다.');</script>");
       //-res.redirect('/board/read/' + idx);
       res.redirect('/board/page');
