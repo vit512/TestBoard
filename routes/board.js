@@ -57,7 +57,7 @@ router.post('/write', function(req, res, next) {
   const passwd = req.body.passwd;
   const datas = [name, title, content, passwd]; 
   
-  const sql = "INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES(?,?,?,now(),now(),?,0)"; 
+  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES(?,?,?,now(),now(),?,0)`; 
   connection.query(sql, datas, function(err,rows) { 
     if(err) 
       console.error("err : " + err);
@@ -67,8 +67,8 @@ router.post('/write', function(req, res, next) {
 
 router.get('/read/:idx', function(req, res, next) { 
   const idx = req.params.idx; 
-  const sql = "SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, " +   
-    "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit from board where idx=?";
+  const sql = `SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, 
+    date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit from board where idx=?`;
     connection.query(sql,[idx], function(err, rows) {  
       if(err) 
         console.error("err : " + err);
@@ -84,7 +84,7 @@ router.post('/update', function(req, res, next) {
   const passwd = req.body.passwd;
   const datas = [name, title, content, idx, passwd]; 
 
-  const sql = "UPDATE board set name=?, title=?, content=? ,modidate=now() where idx=? and passwd=?"; 
+  const sql = `UPDATE board SET name=?, title=?, content=? ,modidate=now() WHERE idx=? AND passwd=?`; 
   connection.query(sql, datas, function(err, result){
     if(err) 
       console.error(err);
@@ -103,7 +103,7 @@ router.post('/delete', function(req,res,next) {
   const idx = req.body.idx;
   const passwd = req.body.passwd;
   const datas = [idx, passwd];  
-  const sql = "DELETE FROM board WHERE idx=? AND passwd=?";
+  const sql = 'DELETE FROM board WHERE idx=? AND passwd=?';
   connection.query(sql, datas, function(err, result) {
     if(err) console.error(err);
     if(result.affectedRows == 0){
