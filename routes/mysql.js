@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
+const express = require('express');
+const router = express.Router();
+const mysql = require('mysql');
  
 router.get('/', function(req, res, next) {
  
-  var connection = mysql.createConnection({
+  const connection = mysql.createConnection({
       host  :'127.0.0.1',
       port : 3306,
       user : 'root',

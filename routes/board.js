@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mysql_odbc = require('../db/db_conn')();
 const connection = mysql_odbc.init();
+
+
 //const mysql = require('mysql');
 
 // const connection = mysql.createConnection({
@@ -89,6 +91,7 @@ router.post('/update', function(req, res, next) {
     if(result.affectedRows == 0) { 
       res.send("<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>");
     } else {
+      //res.send("<script>alert('수정되었습니다.');</script>");
       //-res.redirect('/board/read/' + idx);
       res.redirect('/board/page');
       }

@@ -5,7 +5,8 @@ html
     link(rel='stylesheet' href='/stylesheets/style.css')
   body
     h1 #{title}
-    form(action='/board/write' method='post')
+    //- form(action='/board/write' method='post')
+    form(name='form' method='post')
       table(border='1')
         tr
           td 작성자
@@ -25,5 +26,12 @@ html
             input#passwd(type='password' name='passwd' required)
         tr
           td(colspan='2')
-            button(type='submit') 글쓰기
-      a(href='/board/page') 목록
+            button(type='submit', onclick="writeBtn()") 글쓰기
+
+    a(href='/board/page') 목록
+
+script.
+  function writeBtn() {
+    alert("등록되었습니다.");
+    form.action='/board/write'    
+  }

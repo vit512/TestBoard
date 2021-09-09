@@ -33,8 +33,18 @@ html
           td #{rows.regdate}
         tr
           td(colspan='2')
-            button(type='submit', value='update', onclick="form.action='/board/update'") 수정
-            button(type='submit', value='update', onclick="form.action='/board/delete'") 삭제
+            button(type='submit', onclick="updateBtn()") 수정
+            button(type='submit', onclick="deleteBtn()") 삭제
             
     a(href='/board/page') 목록
-          
+
+script.
+  function updateBtn() {
+    alert("수정되었습니다.");
+    form.action='/board/update'    
+  }
+
+  function deleteBtn() {
+    confirm("삭제하시겠습니까?");
+    form.action='/board/delete'    
+  }
