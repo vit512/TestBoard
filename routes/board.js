@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
-// const mysql_odbc = require('../db/db_conn')();
-// const conn = mysql_odbc.init();
+const mysql_odbc = require('../db/db_conn')();
+const connection = mysql_odbc.init();
+//const mysql = require('mysql');
 
-
-const connection = mysql.createConnection({
-  host : '127.0.0.1',
-  port : 3306,
-  user : 'root',
-  password : '6245',
-  database : 'nodedb'
-});
+// const connection = mysql.createConnection({
+//   host : '127.0.0.1',
+//   port : 3306,
+//   user : 'root',
+//   password : '6245',
+//   database : 'nodedb'
+// });
 
 router.get('/list', function(req, res, next) {
   res.redirect('/board/list/1');
@@ -25,7 +24,7 @@ router.get('/list/:page', function(req, res, next) {
     if(err) 
       console.error("err : " + err);
     res.render('list.pug', {title : '게시판 글목록', rows:rows});
-  });
+    });
 });
 
 router.get('/page', function(req, res, next) {
@@ -69,9 +68,10 @@ router.get('/read/:idx', function(req, res, next) {
   const sql = "SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, " +   
     "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit from board where idx=?";
     connection.query(sql,[idx], function(err, rows) {  
-    if(err) console.error("err : " + err);
+      if(err) 
+        console.error("err : " + err);
     res.render('read', {title : '상세보기', rows:rows[0]}); 
-  });
+    });
 });
 
 router.post('/update', function(req, res, next) {
@@ -84,13 +84,14 @@ router.post('/update', function(req, res, next) {
 
   const sql = "UPDATE board set name=?, title=?, content=? ,modidate=now() where idx=? and passwd=?"; 
   connection.query(sql, datas, function(err, result){
-    if (err) console.error(err);
-    if(result.affectedRows == 0) 
-    { res.send("<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>");
+    if(err) 
+      console.error(err);
+    if(result.affectedRows == 0) { 
+      res.send("<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>");
     } else {
-        //-res.redirect('/board/read/' + idx);
-        res.redirect('/board/page');
-    }
+      //-res.redirect('/board/read/' + idx);
+      res.redirect('/board/page');
+      }
   });
 });
 
