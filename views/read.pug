@@ -1,13 +1,22 @@
 doctype html
 html
   head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
     title #{title}
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
+   
   body    
     h1 #{title}
-    //-form(action='/board/update', method='post')
-    form(name='form', method='post')
-      table(border='1')
+    //- form(action='/board/update', method='post')
+    br
+    div(class='col-lg-4')
+      form(name='form', method='post')
+      table(class='table table-bordered')
         input#idx(type='hidden', name='idx', value=`${rows.idx}`)
         tr
           td 작성자
@@ -34,17 +43,38 @@ html
         tr
           td(colspan='2')
             button(type='submit', onclick="updateBtn()") 수정
-            button(type='submit', onclick="deleteBtn()") 삭제
-            
-    a(href='/board/page') 목록
+            button(type='submit', onclick="deleteBtn()") 삭제      
+      a(href='/board/page') 목록
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+    script(src='js/bootstrap.min.js')
 
 script.
   function updateBtn() {
-  //  alert("수정되었습니다.");
+    //-alert("수정되었습니다.");
     form.action='/board/update'    
-  }
+  }  
 
   function deleteBtn() {
-    confirm("삭제하시겠습니까?");
-    form.action='/board/delete'    
-  }
+    form.action='/board/delete'
+
+    //- if(window.confirm("삭제하시겠습니까?")) {
+    //-   form.action='/board/delete';
+    //-   console.log('삭제되었습니다');
+    //- } else {
+    //-     //- location.replace('/board/read/' + rows.idx);
+    //-     //- location.reload();
+    //-     //- form.action='/read/:idx'
+    //-     console.log('삭제가 취소되었습니다');   
+    //- }
+    
+    //- const chk = window.confirm("삭제하시겠습니까?")
+    //- if(chk) {
+    //-   form.action='/board/delete'
+    //- } else {
+    //-   //- history.back()
+    //-   alert("삭제가취소되었습니다.");
+    //-   history.back();
+    //- }
+
+  }  
