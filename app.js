@@ -18,18 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
-
-
-
-
-const indexRouter = require('./routes/index');
 //const usersRouter = require('./routes/users');
 const formRouter = require('./routes/form');
 const mysqlRouter = require('./routes/mysql');
 const boardRouter = require('./routes/board');
+const indexRouter = require('./routes/board');
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

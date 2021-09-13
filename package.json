@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "bootstrap": "^5.1.1",
-    "bootstrap-table": "^1.18.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.16.4",
@@ -22,11 +20,10 @@
   },
   "devDependencies": {
     "-": "0.0.1",
-    "@babel/cli": "^7.15.4",
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
-    "@babel/preset-env": "^7.15.6",
-    "babel-loader": "^8.2.2",
     "nodemon": "^2.0.12"
-  }
+  },
+  "description": "",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }

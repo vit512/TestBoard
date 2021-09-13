@@ -6,14 +6,3 @@ body {
 a {
   color: #00B7FF;
 }
-
-/* table {
-  width: 50%;
-  counter-reset: row-num;
-}
-table tr  {
-  counter-increment: row-num;
-}
-table tr td:first-child::before {
-    content: counter(row-num);
-} */
