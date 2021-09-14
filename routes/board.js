@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'TEST BOARD' });
 });
 
-// 게시판 글 목록
+// 게시판 글 목록 페이지
 router.get('/page', function(req, res, next) {
   res.redirect('/board/page/1');
 });
@@ -62,12 +62,20 @@ router.get('/read/:idx', function(req, res, next) {
   const idx = req.params.idx; 
   const sql = `SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, 
     date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit from board where idx=?`;
-    connection.query(sql,[idx], function(err, rows) {  
+  
+    connection.query(sql, [idx], function(err, rows) {  
       if(err)
         console.error("err : " + err);
     res.render('read', {title : '상세 페이지', rows:rows[0]}); 
     });
+
+    connection.query(`UPDATE board SET hit = hit + 1 WHERE idx = ?`,[idx], function(err) {  
+      if(err)
+        console.error("err : " + err);
+    }); //조회수 증가 
 });
+
+
 
 // 수정 페이지
 router.get('/edit/:idx', function(req, res, next) { 
