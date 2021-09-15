@@ -1,19 +1,21 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-// const mysql = require('mysql');
+import mysql from 'mysql';
 
-const mysql_odbc = require('../db/db_conn')();
-//import {mysql_odbc} from '../db/db_conn';
-const connection = mysql_odbc.init();
+// import mysql_odbc from '../db/db_conn';
+// const connection = mysql_odbc.init();
+
 
 router.get('/', function (req, res, next) {
-  //   const connection = mysql.createConnection({
-  //       host  :'127.0.0.1',
-  //       port : 3306,
-  //       user : 'root',
-  //       password : '6245',
-  //       database:'nodedb'
-  //   });
+
+  
+const connection = mysql.createConnection({
+  host : '127.0.0.1',
+  port : 3306,
+  user : 'root',
+  password : '6245',
+  database : 'nodedb'
+});
 
   connection.connect(function (err) {
     if (err) {

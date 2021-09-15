@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //const usersRouter = require('./routes/users');
 const formRouter = require('./routes/form');
 const mysqlRouter = require('./routes/mysql');
-const boardRouter = require('./routes/board');
-const indexRouter = require('./routes/board');
+const boardRouter = require('./routes/board.js');
+const indexRouter = require('./routes/board.js');
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

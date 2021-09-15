@@ -1,18 +1,18 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 const router = express.Router();
-const mysql_odbc = require('../db/db_conn')();
-//import {mysql_odbc} from '../db/db_conn';
-const connection = mysql_odbc.init();
+// const mysql_odbc = require('../db/db_conn')();
+// import {mysql_odbc} from '../db/db_conn';
+// const connection = mysql_odbc.init();
 
-//const mysql = require('mysql');
-
-// const connection = mysql.createConnection({
-//   host : '127.0.0.1',
-//   port : 3306,
-//   user : 'root',
-//   password : '6245',
-//   database : 'nodedb'
-// });
+import mysql from 'mysql';
+const connection = mysql.createConnection({
+  host : '127.0.0.1',
+  port : 3306,
+  user : 'root',
+  password : '6245',
+  database : 'nodedb'
+});
 
 // 메인페이지
 router.get('/', function (req, res, next) {
@@ -120,8 +120,8 @@ router.post('/update', function (req, res, next) {
         "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
       );
     } else {
-      //-res.redirect('/board/read/' + idx);
-      // res.redirect('/board/page');
+      //- res.redirect('/board/read/' + idx);
+      //- res.redirect('/board/page');
       res.send(
         "<script>alert('수정되었습니다.');location.replace('/board/page');</script>",
       );
