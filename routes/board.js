@@ -2,17 +2,17 @@
 import express from 'express';
 const router = express.Router();
 // const mysql_odbc = require('../db/db_conn')();
-// import {mysql_odbc} from '../db/db_conn';
-// const connection = mysql_odbc.init();
+import { mysql_odbc } from '../db/db_conn';
+const connection = mysql_odbc.init();
 
-import mysql from 'mysql';
-const connection = mysql.createConnection({
-  host : '127.0.0.1',
-  port : 3306,
-  user : 'root',
-  password : '6245',
-  database : 'nodedb'
-});
+// import mysql from 'mysql';
+// const connection = mysql.createConnection({
+//   host : '127.0.0.1',
+//   port : 3306,
+//   user : 'root',
+//   password : '6245',
+//   database : 'nodedb'
+// });
 
 // 메인페이지
 router.get('/', function (req, res, next) {
@@ -59,7 +59,7 @@ router.post('/write', function (req, res, next) {
 
   const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) 
                VALUES(?, ?, ?, now(), now(), ?, 0)`;
-               
+
   connection.query(sql, datas, function (err, rows) {
     if (err) console.error('err : ' + err);
     res.redirect('/board/page');

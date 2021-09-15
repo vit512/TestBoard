@@ -5,17 +5,14 @@ import mysql from 'mysql';
 // import mysql_odbc from '../db/db_conn';
 // const connection = mysql_odbc.init();
 
-
 router.get('/', function (req, res, next) {
-
-  
-const connection = mysql.createConnection({
-  host : '127.0.0.1',
-  port : 3306,
-  user : 'root',
-  password : '6245',
-  database : 'nodedb'
-});
+  const connection = mysql.createConnection({
+    host: '127.0.0.1',
+    port: 3306,
+    user: 'root',
+    password: '6245',
+    database: 'nodedb',
+  });
 
   connection.connect(function (err) {
     if (err) {
