@@ -36,17 +36,18 @@ html
         form.d-flex
           input.form-control.me-sm-2(type='text', placeholder='Search')
           button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
-
-    br
-    div.card.text-white.bg-success.mb-3(style='max-width: 20rem;')
-      div.h5.card-header 연결 여부 ( Contention )
-      div.card-body
-        h3.card-title #{connect}
-
-    div.card.text-white.bg-danger.mb-3(style='max-width: 20rem;')
-      div.h5.card-header 오류 여부 ( Error )
-      div.card-body
-        h3.card-title #{err}
+    
+    div(class='col-lg-8')
+      br
+      div.card.text-white.bg-success.mb-3(style='max-width: 20rem;')
+        div.h5.card-header 연결 여부 ( Contention )
+        div.card-body
+          h3.card-title #{connect}
+  
+      div.card.text-white.bg-danger.mb-3(style='max-width: 20rem;')
+        div.h5.card-header 오류 여부 ( Error )
+        div.card-body
+          h3.card-title #{err}
     
     
 
