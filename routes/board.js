@@ -45,6 +45,15 @@ router.get('/page/:page', function (req, res, next) {
   });
 });
 
+// const getAllPost = async (req, res, next) => {
+//   try {
+//     const posts = await Post.find({});
+//     res.status(200).render('board', { posts });
+//   } catch (error) {
+//     res.status(400).send({ error: error.message });
+//   }
+// };
+
 //삽입 페이지
 router.get('/write', function (req, res, next) {
   res.render('write', { title: '게시판 글쓰기' });
