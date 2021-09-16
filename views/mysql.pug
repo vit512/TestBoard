@@ -1,53 +1,38 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    meta(name='viewport' content='width=device-width, initial-scale=1')
+extends layout.pug
 
-    //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
-    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sandstone/bootstrap.min.css" integrity="sha384-zEpdAL7W11eTKeoBJK1g79kgl9qjP7g84KfK3AZsuonx38n8ad+f5ZgXtoSDxPOh" crossorigin="anonymous")
+block nav
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+    div.container-fluid
+      a.navbar-brand(href='/mysql') #{title}
+      button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+      div#navbarColor01.collapse.navbar-collapse(style={"word-break" : "nowrap"})
+        ul.navbar-nav.me-auto
+          li.nav-item
+            a.nav-link(href='/') HOME
+          li.nav-item
+            a.nav-link(href='/board/page') Boardlist
+          li.nav-items
+            a.nav-link.active(href='/mysql') DB test
+          li.nav-item
+            a.nav-link(href='#') About
+          
+      form.d-flex
+        input.form-control.me-sm-2(type='text', placeholder='Search')
+        button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
     
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css")
-    
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')  
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+block content    
+  div(class='col-lg-8')
+    br
+    div.card.text-white.bg-success.mb-3(style='max-width: 20rem;')
+      div.h5.card-header 연결 여부 ( Contention )
+      div.card-body
+        h3.card-title #{connect}
 
-    title #{title}
-
-  body
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-      div.container-fluid
-        a.navbar-brand(href='/mysql') #{title}
-        button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-
-        div#navbarColor01.collapse.navbar-collapse(style={"word-break" : "nowrap"})
-          ul.navbar-nav.me-auto
-            li.nav-item
-              a.nav-link(href='/') HOME
-            li.nav-item
-              a.nav-link(href='/board/page') Boardlist
-            li.nav-items
-              a.nav-link.active(href='/mysql') DB test
-            li.nav-item
-              a.nav-link(href='#') About
-            
-        form.d-flex
-          input.form-control.me-sm-2(type='text', placeholder='Search')
-          button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
-    
-    div(class='col-lg-8')
-      br
-      div.card.text-white.bg-success.mb-3(style='max-width: 20rem;')
-        div.h5.card-header 연결 여부 ( Contention )
-        div.card-body
-          h3.card-title #{connect}
-  
-      div.card.text-white.bg-danger.mb-3(style='max-width: 20rem;')
-        div.h5.card-header 오류 여부 ( Error )
-        div.card-body
-          h3.card-title #{err}
+    div.card.text-white.bg-danger.mb-3(style='max-width: 20rem;')
+      div.h5.card-header 오류 여부 ( Error )
+      div.card-body
+        h3.card-title #{err}
     
     
 

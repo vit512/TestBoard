@@ -1,79 +1,62 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    meta(name='viewport' content='width=device-width, initial-scale=1')
+extends layout.pug
 
-    //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
-    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sandstone/bootstrap.min.css" integrity="sha384-zEpdAL7W11eTKeoBJK1g79kgl9qjP7g84KfK3AZsuonx38n8ad+f5ZgXtoSDxPOh" crossorigin="anonymous")
+block nav
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+    div.container-fluid
+      a.navbar-brand(href='/board/page') #{title}
+      button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+      div#navbarColor01.collapse.navbar-collapse(style={"word-break" : "nowrap"})
+        ul.navbar-nav.me-auto
+          li.nav-item
+            a.nav-link(href='/') HOME
+          li.nav-item
+            a.nav-link.active(href='/board/page') Boardlist
+          li.nav-item
+            a.nav-link(href='/mysql') DB test
+          li.nav-item
+            a.nav-link(href='#') About
+          
+      form.d-flex
+        input.form-control.me-sm-2(type='text', placeholder='Search')
+        button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
+
+block content       
+  br
+  div(class='col-lg-8')
+    //- a(href='/board/write') 글쓰기
+    table(class='table table-striped table-bordered table-hover text-center ')
+      tr
+        td ID
+        td(style={width: "15%"}) 작성자
+        td(style={width: "40%"}) 제목
+        td 조회수
+        td 수정일
+        td 등록일
+        td 삭제
+      -for(let i = (page * page_num) - page_num; i < (page * page_num); i++)
+        -if(i > length) 
+          -i++
+        -else 
+          tr
+            td #{rows[i].idx}   
+            td #{rows[i].name}          
+            td
+              a(href="/board/read/" + rows[i].idx) #{rows[i].title}
+            td #{rows[i].hit}  
+            td #{rows[i].modidate}       
+            td #{rows[i].regdate}
+            td
+              a(href="/board/delete/" + rows[i].idx) ❌
+      tr
+        td(colspan='7')
+          //- button.btn.btn-success.float-left(type='button', onclick="location.href='/board/write'") 글쓰기
+          -for(let j = 0; j < rows.length / page_num; j++)
+            a(href="/board/page/"+(j + 1)) [#{j + 1}]
+    button.btn.btn-success(type='button', onclick="goWrite()") 글쓰기
     
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css")
-    
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')  
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
-
-    title #{title}
-
-  body
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-      div.container-fluid
-        a.navbar-brand(href='/board/page') #{title}
-        button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarColor01', aria-controls='navbarColor01', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-
-        div#navbarColor01.collapse.navbar-collapse(style={"word-break" : "nowrap"})
-          ul.navbar-nav.me-auto
-            li.nav-item
-              a.nav-link(href='/') HOME
-            li.nav-item
-              a.nav-link.active(href='/board/page') Boardlist
-            li.nav-item
-              a.nav-link(href='/mysql') DB test
-            li.nav-item
-              a.nav-link(href='#') About
-            
-        form.d-flex
-          input.form-control.me-sm-2(type='text', placeholder='Search')
-          button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
-
-    br
-    div(class='col-lg-8')
-      //- a(href='/board/write') 글쓰기
-      table(class='table table-striped table-bordered table-hover text-center ')
-        tr
-          td ID
-          td(style={width: "15%"}) 작성자
-          td(style={width: "40%"}) 제목
-          td 조회수
-          td 수정일
-          td 등록일
-          td 삭제
-        -for(let i = (page * page_num) - page_num; i < (page * page_num); i++)
-          -if(i > length) 
-            -i++
-          -else 
-            tr
-              td #{rows[i].idx}   
-              td #{rows[i].name}          
-              td
-                a(href="/board/read/" + rows[i].idx) #{rows[i].title}
-              td #{rows[i].hit}  
-              td #{rows[i].modidate}       
-              td #{rows[i].regdate}
-              td
-                a(href="/board/delete/" + rows[i].idx) ❌
-        tr
-          td(colspan='7')
-            //- button.btn.btn-success.float-left(type='button', onclick="location.href='/board/write'") 글쓰기
-            -for(let j = 0; j < rows.length / page_num; j++)
-              a(href="/board/page/"+(j + 1)) [#{j + 1}]
-
-      button.btn.btn-success(type='button', onclick="goWrite()") 글쓰기
-
-
-script.
-  function goWrite() {
-      location.href='/board/write'
-  }
+  script.
+    function goWrite() {
+        location.href='/board/write'
+    }
 
