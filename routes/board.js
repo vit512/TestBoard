@@ -1,6 +1,8 @@
-// const express = require('express');
 import express from 'express';
+import axios from 'axios';
+
 const router = express.Router();
+
 // const mysql_odbc = require('../db/db_conn')();
 // import { mysql_odbc } from '../db/db_conn';
 // const connection = mysql_odbc.init();
@@ -44,15 +46,6 @@ router.get('/page/:page', function (req, res, next) {
     console.log(rows.length - 1);
   });
 });
-
-// const getAllPost = async (req, res, next) => {
-//   try {
-//     const posts = await Post.find({});
-//     res.status(200).render('board', { posts });
-//   } catch (error) {
-//     res.status(400).send({ error: error.message });
-//   }
-// };
 
 //삽입 페이지
 router.get('/write', function (req, res, next) {
@@ -175,5 +168,39 @@ router.get('/delete/:idx', function (req, res, next) {
     );
   });
 });
+
+// //control
+// module.exports= {
+//   goEdit: function () {  
+//     const name = document.getElementById("name");
+//     const title = document.getElementById("title");
+//     const content = document.getElementById("content");
+//     axios({
+//       method:"POST",
+//       url: '/board/edit + #{rows.idx}',
+//       data:{
+//         "name": name.value,
+//         "title": title.value,
+//         "content": content.value
+//       }
+//     })
+//       .then((res) => {
+//         console.log(res);
+//       })
+//       .catch(err=> {
+//         console.error(err);
+//         throw new Error(err);
+//       });
+//   },
+  
+//   bar: function () {
+//     // whatever
+//   }
+
+
+
+// }
+
+
 
 module.exports = router;

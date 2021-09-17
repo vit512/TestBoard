@@ -1,6 +1,7 @@
 import express from 'express';
-const router = express.Router();
 import mysql from 'mysql';
+
+const router = express.Router();
 
 // import mysql_odbc from '../db/db_conn';
 // const connection = mysql_odbc.init();

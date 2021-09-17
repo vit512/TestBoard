@@ -56,15 +56,40 @@ block content
             button.btn.btn-danger(type='submit', onclick="deleteBtn()") 삭제 
             button.btn.btn-secondary.float-right(type='button', onclick="goPage()") 목록으로        
     //- a(href='/board/page') 목록
-
+      
   script.
-    function goEdit() {
-        location.href='/board/edit/' + #{rows.idx}
+    function goEdit() {  
+      const name = document.getElementById("name");
+      const title = document.getElementById("title");
+      const content = document.getElementById("content");
+      axios({
+        method:"post",
+        url: '/board/edit',
+        data:{
+          "name": name.value,
+          "title": title.value,
+          "content": content.value
+        }
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+          throw new Error(error);
+        });
     }
+
+    //- function goEdit() {
+    //-     location.href='/board/edit/' + #{rows.idx}
+    //- }
+
   
-    function goPage() {
-        location.href='/board/page'
-    }
+    //- function goPage() {
+    //-     location.href='/board/page'
+    //- }
+    
+    
   
     function deleteBtn() {
       //- confirm("삭제하시겠습니까?");
