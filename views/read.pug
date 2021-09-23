@@ -117,11 +117,81 @@ block content
     //-       throw new Error(err);
     //-     });
     //- }
-
-    function goEdit() {
-        location.href='/board/edit/' + #{rows.idx}
+  
+    async function goEdit() {
+      try {
+        //응답 성공
+        const response = await axios.get(`/board/edit/#{rows.idx}`);
+        console.log(response);
+        console.log(response);
+      } catch (error) {
+        //응답 실패
+        console.error(error);
+      }
     }
   
+    //- function goEdit() {
+    //-   const name = document.getElementById("name");
+    //-   const title = document.getElementById("title");
+    //-   const content = document.getElementById("content");
+    //-   axios({
+    //-     method: 'get', //통신 방식
+    //-     url: `/board/edit/#{rows.idx}`, //통신할 페이지
+    //-     data: {
+    //-       "name": name,
+    //-       "title": title,
+    //-       "content": content
+    //-     } //인자로 보낼 데이터
+    //-   })
+    //-     .then(response=>{
+    //-         document.getElementById('idx').innerText=response.data.num;
+    //-         console.log(response);
+    //-     })
+    //-     .catch(error=>{
+    //-         document.getElementById('idx').innerText='error';
+    //-         console.log(error);
+    //-     })
+    //- }
+  
+    function goEdit(){
+      let name = $("#name").val();
+      let name = $("#name").val();
+      let name = $("#name").val();
+    
+      axios.request({
+          method : 'POST',
+          url: '/member/new',
+          headers: {'Content-type' : 'application/json'},
+          data: {
+              email : email,
+              password : password,
+              name : name,
+              nickname : nickname,
+              rrn : rrn,
+              gender : gender,
+              phone : phone
+          }
+      }).then(
+          alert("성공했습니다.")
+      )
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //- function goEdit() {
+    //-     location.href='/board/edit/' + #{rows.idx}
+    //- }
+
     function deleteBtn() {
       const remove = {
         idx: document.getElementById("idx").value,

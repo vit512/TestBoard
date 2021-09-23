@@ -1,6 +1,5 @@
 import express from 'express';
 import mysql from 'mysql';
-import alert from 'alert';
 
 const router = express.Router();
 

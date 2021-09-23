@@ -57,3 +57,41 @@ axios.get('/user', {
     });
 }
 
+
+async function getData() {
+  try {
+    //응답 성공
+    const response = await axios.get('url주소');
+    console.log(response);
+  } catch (error) {
+    //응답 실패
+    console.error(error);
+  }
+}
+
+function submit_click(){
+  var email = $("#email").val();
+  var password = $("#password").val();
+  var name = $("#name").val();
+  var nickname = $("#nickname").val();
+  var rrn = $("#rrn").val();
+  var gender = $("#gender").val();
+  var phone = $("#phone").val();
+
+  axios.request({
+      method : 'POST',
+      url: '/member/new',
+      headers: {'Content-type' : 'application/json'},
+      data: {
+          email : email,
+          password : password,
+          name : name,
+          nickname : nickname,
+          rrn : rrn,
+          gender : gender,
+          phone : phone
+      }
+  }).then(
+      alert("성공했습니다.")
+  )
+}
