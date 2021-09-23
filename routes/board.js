@@ -56,9 +56,9 @@ router.get('/write', function (req, res, next) {
 router.post('/write', function (req, res, next) {
   const write = req.body
 
-  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd) VALUES`;
+  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES`;
 
-  const sqlValue = `("${write.name}", "${write.title}", "${write.content}", NOw(), NOw(), "${write.passwd}");`;
+  const sqlValue = `("${write.name}", "${write.title}", "${write.content}", NOw(), NOw(), "${write.passwd}", 0);`;
 
   connection.query(sql + sqlValue, function (err, rows, fields) {
     if (err) {
