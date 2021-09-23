@@ -58,36 +58,76 @@ block content
     //- a(href='/board/page') 목록
       
   script.
+    //- function goEdit() {  
+    //-   const name = document.getElementById("name");
+    //-   const title = document.getElementById("title");
+    //-   const content = document.getElementById("content");
+    //-   //- const name = $("#name").val();
+    //-   //- const title = $("#title").val();
+    //-   //- const content = $("#content").val();
+    //-   axios({
+    //-     method:"post",
+    //-     url: `/board/edit/#{rows.idx}`,
+    //-     data:{
+    //-       "name": name,
+    //-       "title": title,
+    //-       "content": content
+    //-     }
+    //-   })
+    //-     .then((res) => {
+    //-       console.log(res);
+    //-     })
+    //-     .catch(err => {
+    //-       console.log(err);
+    //-       throw new Error(err);
+    //-     })
+    //- }
+
     function goEdit() {  
       const name = document.getElementById("name");
       const title = document.getElementById("title");
       const content = document.getElementById("content");
-      axios({
-        method:"post",
-        url: '/board/edit',
-        data:{
-          "name": name.value,
-          "title": title.value,
-          "content": content.value
-        }
-      })
+      //- const name = $("#name").val();
+      //- const title = $("#title").val();
+      //- const content = $("#content").val();
+      axios.post(`/board/edit/#{rows.idx}`, {
+          "name": name,
+          "title": title,
+          "content": content
+        })
         .then((res) => {
           console.log(res);
         })
-        .catch(error => {
-          console.log(error);
-          throw new Error(error);
-        });
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
     }
+
+    //- function goEdit() {
+    //-   axios({
+    //-     method:"get",
+    //-     url: `/board/edit/#{rows.idx}`,
+    //-   })
+    //-     .then((res) => {
+    //-       console.log(res);
+    //-     })
+    //-     .catch(err => {
+    //-       console.log(err);
+    //-       throw new Error(err);
+    //-     });
+    //- }
+
+    
 
     //- function goEdit() {
     //-     location.href='/board/edit/' + #{rows.idx}
     //- }
 
   
-    //- function goPage() {
-    //-     location.href='/board/page'
-    //- }
+    function goPage() {
+        location.href='/board/page'
+    }
     
     
   

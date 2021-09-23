@@ -26,15 +26,15 @@ block content
     //- form(action='/board/update', method='post')
     form(name='form', method='post')
       table(class='table table-bordered')
-        input#idx(type='hidden', name='idx', class='form-control',  value='')
+        input#idx(type='hidden', name='idx', class='form-control',  value=`${rows.idx}`)
         tr
           td 작성자
           td 
-            input#name(type='text', name='name', class='form-control', placeholder="이름를 입력해주세요.", value='', required)
+            input#name(type='text', name='name', class='form-control', placeholder="이름를 입력해주세요.", value=`${rows.name}`, required)
         tr
           td 제목
           td 
-            input#title(type='text', name='title', class='form-control', placeholder="제목을 입력해주세요.", value='', required)
+            input#title(type='text', name='title', class='form-control', placeholder="제목을 입력해주세요.", value=`${rows.title}`, required)
         tr
           td 내용
           td

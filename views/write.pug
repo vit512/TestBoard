@@ -23,8 +23,8 @@ block nav
 block content
   br
   div(class='col-lg-4')
-    //- form(action='/board/write' method='post')
-    form(name='form', method='post')
+      //- form(action='/board/write' method='post')
+      //- form(name='form', method='post')
       table(class='table table-bordered')
         tr
           td 작성자
@@ -44,15 +44,35 @@ block content
             input#passwd(type='password', name='passwd', class='form-control', placeholder="Password", required)   
         tr
           td(colspan='2')
-            button.btn.btn-success(type='submit', onclick="writeBtn()") 글쓰기
+            button.btn.btn-success(onclick="writeBtn()") 글쓰기
             button.btn.btn-secondary.float-right(type='button', onclick="goPage()") 목록으로
-    //- a(href='/board/page') 목록
+      //- a(href='/board/page') 목록
 
   script.
     function writeBtn() {
-      //- alert("등록되었습니다.");
-      form.action='/board/write'    
+      const write = {
+        name: document.getElementById("name").value,
+        title: document.getElementById("title").value,
+        content: document.getElementById("content").value,
+        passwd: document.getElementById("passwd").value,
+        regdate: new Date().toLocaleString(),
+        modidate: new Date().toLocaleString(),
+      };
+      axios.post("/board/write", write).then(function (result) {
+        if (result.data) {
+          alert("등록 되었습니다.");
+          location.href = "/board/page";
+        }
+        else {
+          alert("등록이 실패하였습니다.");
+        }
+      });
     }
+      
+    //- function writeBtn() {
+    //-   //- alert("등록되었습니다.");
+    //-   form.action='/board/write'
+    //- }
   
     function goPage() {
         location.href='/board/page'

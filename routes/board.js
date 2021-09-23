@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const router = express.Router();
 
+
 // const mysql_odbc = require('../db/db_conn')();
 // import { mysql_odbc } from '../db/db_conn';
 // const connection = mysql_odbc.init();
@@ -53,20 +54,21 @@ router.get('/write', function (req, res, next) {
 });
 
 router.post('/write', function (req, res, next) {
-  const name = req.body.name;
-  const title = req.body.title;
-  const content = req.body.content;
-  const passwd = req.body.passwd;
-  const datas = [name, title, content, passwd];
+  const write = req.body
 
-  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) 
-               VALUES(?, ?, ?, now(), now(), ?, 0)`;
+  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd) VALUES`;
 
-  connection.query(sql, datas, function (err, rows) {
-    if (err) console.error('err : ' + err);
-    res.send(
-      "<script>alert('등록되었습니다.');location.replace('/board/page');</script>",
-    );
+  const sqlValue = `("${write.name}", "${write.title}", "${write.content}", NOw(), NOw(), "${write.passwd}");`;
+
+  connection.query(sql + sqlValue, function (err, rows, fields) {
+    if (err) {
+      console.error('err : ' + err);
+      res.json(false);
+    }
+    // res.send(
+    //   "<script>alert('등록되었습니다.');location.replace('/board/page');</script>",
+    // );
+    res.json(true);
   });
 });
 
@@ -104,6 +106,26 @@ router.get('/edit/:idx', function (req, res, next) {
   });
 });
 
+
+
+// axios.get('/edit/:idx', {
+//   params: {
+//     ID: 12345
+//   }
+// })
+// .then(function (res) {
+//   console.log(res);
+// })
+// .catch(function (err) {
+//   console.error('err : ' + err);
+//   throw new Error(err)
+// })
+// .finally(function () {
+//   // always executed
+// }); 
+
+
+
 //수정하기
 router.post('/update', function (req, res, next) {
   const idx = req.body.idx;
@@ -114,7 +136,7 @@ router.post('/update', function (req, res, next) {
   const datas = [name, title, content, idx, passwd];
 
   const sql = `UPDATE board 
-               SET name=?, title=?, content=? ,modidate=now() 
+               SET name=?, title=?, content=? ,modidate=NOW() 
                WHERE idx=? 
                AND passwd=?`;
   connection.query(sql, datas, function (err, result) {
