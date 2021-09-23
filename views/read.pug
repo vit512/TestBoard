@@ -118,42 +118,34 @@ block content
     //-     });
     //- }
 
-    
-
     function goEdit() {
         location.href='/board/edit/' + #{rows.idx}
     }
-
   
+    function deleteBtn() {
+      const remove = {
+        idx: document.getElementById("idx").value,
+        passwd: document.getElementById("passwd").value,
+      }
+      axios.post("/delete", remove).then(function (result) {
+        if (result.data) {
+          alert("삭제 되었습니다.");
+          location.href = "/board/page";
+        }
+        else {
+          alert("삭제에 실패하였습니다.");
+        }
+      });
+    }
+
+    //- function deleteBtn() {
+    //-     //- confirm("삭제하시겠습니까?");
+    //-     form.action='/board/delete'
+    //- }
+    
     function goPage() {
         location.href='/board/page'
     }
     
-    
-  
-    function deleteBtn() {
-      //- confirm("삭제하시겠습니까?");
-      form.action='/board/delete'    
-    
-    //- if(window.confirm("삭제하시겠습니까?")) {
-      //-   form.action='/board/delete';
-      //-   console.log('삭제되었습니다');
-      //- } else {
-      //-     //- location.replace('/board/read/' + rows.idx);
-      //-     //- location.reload();
-      //-     //- form.action='/read/:idx'
-      //-     console.log('삭제가 취소되었습니다');   
-      //- }
-  
-      //- const chk = window.confirm("삭제하시겠습니까?")
-      //- if(chk) {
-      //-   form.action='/board/delete'
-      //- } else {
-      //-   //- history.back()
-      //-   alert("삭제가취소되었습니다.");
-      //-   history.back();
-      //- }
-
-    }
 
            

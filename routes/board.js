@@ -1,5 +1,6 @@
 import express from 'express';
-import axios from 'axios';
+import mysql from 'mysql';
+import alert from 'alert';
 
 const router = express.Router();
 
@@ -7,7 +8,6 @@ const router = express.Router();
 // import { mysql_odbc } from '../db/db_conn';
 // const connection = mysql_odbc.init();
 
-import mysql from 'mysql';
 const connection = mysql.createConnection({
   host: '127.0.0.1',
   port: 3306,
@@ -28,6 +28,7 @@ router.get('/page', function (req, res, next) {
 
 router.get('/page/:page', function (req, res, next) {
   const page = req.params.page;
+
   const sql = `SELECT idx, name, title, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, 
                       date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit 
                FROM board 
@@ -73,14 +74,16 @@ router.post('/write', function (req, res, next) {
 //상세 페이지
 router.get('/read/:idx', function (req, res, next) {
   const idx = req.params.idx;
+
   const sql1 = `SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, 
-                      date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit 
-               FROM board 
-               WHERE idx=?`;
+                       date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit 
+                FROM board 
+                WHERE idx=?`;
 
   const sql2 = `UPDATE board 
                 SET hit = hit + 1 
                 WHERE idx = ?`;
+
   connection.query(sql1, [idx], function (err, rows) {
     if (err) console.error('err : ' + err);
     res.render('read', { title: '상세 페이지', rows: rows[0] });
@@ -94,10 +97,12 @@ router.get('/read/:idx', function (req, res, next) {
 // 수정 페이지
 router.get('/edit/:idx', function (req, res, next) {
   const idx = req.params.idx;
+
   const sql = `SELECT idx, name, title, content, date_format(modidate, '%Y-%m-%d %H:%i:%s') modidate, 
                       date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, hit 
                FROM board 
                WHERE idx=?`;
+
   connection.query(sql, [idx], function (err, rows) {
     if (err) console.error('err : ' + err);
     res.render('edit', { title: '수정 페이지', rows: rows[0] });
@@ -129,18 +134,16 @@ router.post('/update', function (req, res, next) {
                WHERE idx="${update.idx}" 
                AND passwd="${update.passwd}"`;
 
-  //-const sqlValue = `("${update.name}", "${update.title}", "${update.content}", NOw(), "${update.idx}", "${update.passwd}");`;
-
   connection.query(sql, function (err, result) {
     if (err) {
       console.error(err);
       res.json(false);
     }
-    // if (result.affectedRows == 0) {
-    //   res.send(
-    //     "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
-    //   );
-    // }
+    if (result.affectedRows == 0) {
+      res.send(
+        "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
+      );
+    }
     else {
       res.json(true);
       // res.send(
@@ -152,24 +155,27 @@ router.post('/update', function (req, res, next) {
 
 //삭제
 router.post('/delete', function (req, res, next) {
-  const idx = req.body.idx;
-  const passwd = req.body.passwd;
-  const datas = [idx, passwd];
+  const remove = req.body;
+
   const sql = `DELETE FROM board 
-               WHERE idx=? 
-               AND passwd=?`;
-  connection.query(sql, datas, function (err, result) {
-    if (err) console.error(err);
+               WHERE idx="${remove.idx}" 
+               AND passwd="${remove.passwd}"`;
+
+  connection.query(sql, function (err, result) {
+    if (err) {
+      console.error(err);
+      res.json(false);
+    }
     if (result.affectedRows == 0) {
       res.send(
         "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
       );
     } 
     else {
-      // res.redirect('/board/page');
-      res.send(
-        "<script>alert('삭제되었습니다.');location.replace('/board/page');</script>",
-      );
+      res.json(true);
+      // res.send(
+      //   "<script>alert('삭제되었습니다.');location.replace('/board/page');</script>",
+      // );
     }
   });
 });
