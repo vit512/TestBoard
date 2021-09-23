@@ -60,11 +60,31 @@ block content
     function goRead() {
       location.href='/board/read/' + #{rows.idx}
     }    
-  
+    
     function updateBtn() {
-      //- alert("수정되었습니다.");
-      form.action='/board/update'    
+      const update = {
+        idx: document.getElementById("idx").value,
+        name: document.getElementById("name").value,
+        title: document.getElementById("title").value,
+        content: document.getElementById("content").value,
+        passwd: document.getElementById("passwd").value,
+        modidate: new Date().toLocaleString(),
+      };
+      axios.post("/board/update", update).then(function (result) {
+        if (result.data) {
+          alert("수정 되었습니다.");
+          location.href = "/board/page";
+        }
+        else {
+          alert("수정 실패하였습니다.");
+        }
+      });
     }
+
+    //- function updateBtn() {
+    //-   //- alert("수정되었습니다.");
+    //-   form.action='/board/update'    
+    //- }
   
     function deleteBtn() {
       //- confirm("삭제하시겠습니까?");

@@ -83,26 +83,26 @@ block content
     //-     })
     //- }
 
-    function goEdit() {  
-      const name = document.getElementById("name");
-      const title = document.getElementById("title");
-      const content = document.getElementById("content");
-      //- const name = $("#name").val();
-      //- const title = $("#title").val();
-      //- const content = $("#content").val();
-      axios.post(`/board/edit/#{rows.idx}`, {
-          "name": name,
-          "title": title,
-          "content": content
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-          throw new Error(err);
-        })
-    }
+    //- function goEdit() {  
+    //-   const name = document.getElementById("name");
+    //-   const title = document.getElementById("title");
+    //-   const content = document.getElementById("content");
+    //-   //- const name = $("#name").val();
+    //-   //- const title = $("#title").val();
+    //-   //- const content = $("#content").val();
+    //-   axios.post(`/board/edit/#{rows.idx}`, {
+    //-       "name": name,
+    //-       "title": title,
+    //-       "content": content
+    //-     })
+    //-     .then((res) => {
+    //-       console.log(res);
+    //-     })
+    //-     .catch(err => {
+    //-       console.log(err);
+    //-       throw new Error(err);
+    //-     })
+    //- }
 
     //- function goEdit() {
     //-   axios({
@@ -120,9 +120,9 @@ block content
 
     
 
-    //- function goEdit() {
-    //-     location.href='/board/edit/' + #{rows.idx}
-    //- }
+    function goEdit() {
+        location.href='/board/edit/' + #{rows.idx}
+    }
 
   
     function goPage() {

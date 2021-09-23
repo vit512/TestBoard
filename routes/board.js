@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const router = express.Router();
 
-
 // const mysql_odbc = require('../db/db_conn')();
 // import { mysql_odbc } from '../db/db_conn';
 // const connection = mysql_odbc.init();
@@ -54,7 +53,7 @@ router.get('/write', function (req, res, next) {
 });
 
 router.post('/write', function (req, res, next) {
-  const write = req.body
+  const write = req.body;
 
   const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES`;
 
@@ -106,8 +105,6 @@ router.get('/edit/:idx', function (req, res, next) {
   });
 });
 
-
-
 // axios.get('/edit/:idx', {
 //   params: {
 //     ID: 12345
@@ -122,35 +119,34 @@ router.get('/edit/:idx', function (req, res, next) {
 // })
 // .finally(function () {
 //   // always executed
-// }); 
-
-
+// });
 
 //수정하기
 router.post('/update', function (req, res, next) {
-  const idx = req.body.idx;
-  const name = req.body.name;
-  const title = req.body.title;
-  const content = req.body.content;
-  const passwd = req.body.passwd;
-  const datas = [name, title, content, idx, passwd];
+  const update = req.body;
 
   const sql = `UPDATE board 
-               SET name=?, title=?, content=? ,modidate=NOW() 
-               WHERE idx=? 
-               AND passwd=?`;
-  connection.query(sql, datas, function (err, result) {
-    if (err) console.error(err);
-    if (result.affectedRows == 0) {
-      res.send(
-        "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
-      );
-    } else {
-      //- res.redirect('/board/read/' + idx);
-      //- res.redirect('/board/page');
-      res.send(
-        "<script>alert('수정되었습니다.');location.replace('/board/page');</script>",
-      );
+               SET name="${update.name}", title="${update.title}", content="${update.content}" ,modidate=NOW() 
+               WHERE idx="${update.idx}" 
+               AND passwd="${update.passwd}"`;
+
+  //-const sqlValue = `("${update.name}", "${update.title}", "${update.content}", NOw(), "${update.idx}", "${update.passwd}");`;
+
+  connection.query(sql, function (err, result) {
+    if (err) {
+      console.error(err);
+      res.json(false);
+    }
+    // if (result.affectedRows == 0) {
+    //   res.send(
+    //     "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
+    //   );
+    // }
+    else {
+      res.json(true);
+      // res.send(
+      //   "<script>alert('수정되었습니다.');location.replace('/board/page');</script>",
+      // );
     }
   });
 });
@@ -169,7 +165,8 @@ router.post('/delete', function (req, res, next) {
       res.send(
         "<script>alert('비밀번호가 일치하지않습니다.');history.back();</script>",
       );
-    } else {
+    } 
+    else {
       // res.redirect('/board/page');
       res.send(
         "<script>alert('삭제되었습니다.');location.replace('/board/page');</script>",
@@ -193,7 +190,7 @@ router.get('/delete/:idx', function (req, res, next) {
 
 // //control
 // module.exports= {
-//   goEdit: function () {  
+//   goEdit: function () {
 //     const name = document.getElementById("name");
 //     const title = document.getElementById("title");
 //     const content = document.getElementById("content");
@@ -214,15 +211,11 @@ router.get('/delete/:idx', function (req, res, next) {
 //         throw new Error(err);
 //       });
 //   },
-  
+
 //   bar: function () {
 //     // whatever
 //   }
 
-
-
 // }
-
-
 
 module.exports = router;
