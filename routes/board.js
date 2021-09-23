@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 // 게시판 글 목록 페이지
 router.get('/page', function (req, res, next) {
   res.redirect('/board/page/1');
-});
+}); // '/board/page/'로 이동시 1페이지로 이동
 
 router.get('/page/:page', function (req, res, next) {
   const page = req.params.page;
@@ -55,11 +55,10 @@ router.get('/write', function (req, res, next) {
 router.post('/write', function (req, res, next) {
   const write = req.body;
 
-  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) VALUES`;
+  const sql = `INSERT INTO board(name, title, content, regdate, modidate, passwd, hit) 
+               VALUES("${write.name}", "${write.title}", "${write.content}", NOw(), NOw(), "${write.passwd}", 0)`;
 
-  const sqlValue = `("${write.name}", "${write.title}", "${write.content}", NOw(), NOw(), "${write.passwd}", 0);`;
-
-  connection.query(sql + sqlValue, function (err, rows, fields) {
+  connection.query(sql, function (err, rows) {
     if (err) {
       console.error('err : ' + err);
       res.json(false);
